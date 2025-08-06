@@ -1,8 +1,8 @@
-import { WebSocketServer } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 
 const wss = new WebSocketServer({port: 8000});
 let userCount = 0;
-let allSockets = [];
+let allSockets: WebSocket[] = [];
 wss.on("connection", function(socket){
     allSockets.push(socket);
     userCount++;
