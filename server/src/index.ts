@@ -2,12 +2,13 @@ import { WebSocketServer, WebSocket } from 'ws';
 
 interface UserRequest{
     "type": "join"|"chat",
+    "name": string,
     "payload": Record<"message"|"roomId", string>
 }
 
 const wss = new WebSocketServer({port: 8080});
 const arina = new Map<string, Set<WebSocket>>();
-const user = new Map<WebSocket, string>();
+const user = new Map<WebSocket, {name: string, roomId: string}>();
 wss.on("connection", function(socket:WebSocket){
     socket.on("error", console.error);
     socket.on("message", (e)=>{
@@ -26,12 +27,12 @@ wss.on("connection", function(socket:WebSocket){
                 arina.set(roomId, new Set());
             }
             arina.get(roomId)?.add(socket);
-            user.set(socket, roomId);
+            user.set(socket, { name: request.name, roomId});
             socket.send(JSON.stringify({"message": "joined successfully"}));
         }
         // when the user wants to chat ie send messages
         else if(request.type === "chat" && request.payload.message){
-            const roomId = user.get(socket);
+            const roomId = user.get(socket)?.roomId;
             if(!roomId){
                 socket.send(JSON.stringify({message: "You are not in a room" }));
                 return;
@@ -42,7 +43,7 @@ wss.on("connection", function(socket:WebSocket){
     });
     // when the user leaves the room
     socket.on("close", ()=>{
-        const roomId = user.get(socket);
+        const roomId = user.get(socket)?.roomId;
         if(roomId && arina.get(roomId)){
             arina.get(roomId)?.delete(socket);
             if (arina.get(roomId)?.size === 0) {
