@@ -26,7 +26,7 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col bg-bg h-screen p-5 sm:pl-15 sm:pr-15 lg:pl-35 lg:pr-35">
       <div className="h-auto text-text font-bold text-2xl sm:text-3xl lg:text-4xl flex items-center justify-center mb-5">
-        WELCOME TO THE CHAT APP
+        ROOM ID: {localStorage.getItem("user")?.split(",")[1].split(":")[1].replaceAll("\"", "").replace("}", "")}
       </div>
       <div className="flex-1 bg-card border border-borderCard border-b-0 rounded-t-2xl overflow-y-auto p-4">
         {messages.map((message, id)=><div key={id} className="p-3 rounded-2xl font-semibold bg-bgPrimary text-bg w-fit ml-auto mb-2">{message}</div>)}
