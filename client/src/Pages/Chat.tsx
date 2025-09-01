@@ -108,7 +108,7 @@ export default function ChatPage() {
             <Avatar name={msg.name} size={40} colors={getRandomColors(id)} variant="beam"/>
             <div className="font-semibold">{msg.name}</div>
           </div>
-          <div className="relative -top-5  ml-3 p-3 max-w-3xl rounded-2xl font-semibold bg-bgPrimary text-bg w-fit">{msg.payload.message}</div>
+          <div className="relative -top-5  ml-3 p-3 max-w-3xl min-w-24 rounded-2xl font-semibold bg-bgPrimary text-bg w-fit">{msg.payload.message}</div>
         </div>:
         <div key={id} className="w-fit mr-auto mb-2 flex gap-1 flex-col items-start">
           <div className="flex gap-1">
@@ -120,7 +120,7 @@ export default function ChatPage() {
         )}
       </div>
       <div className="h-16 bg-bgSecondary border border-t-0 border-borderCard rounded-b-2xl flex items-center gap-3 px-4">
-        <input ref={inputRef} className="flex-1 min-w-24 bg-white px-4 py-2 border border-borderCard rounded-xl focus:outline-none focus:ring-2 focus:ring-bgPrimary focus:border-transparent focus:scale-105" type="text" placeholder="Enter your message..." />
+        <input ref={inputRef} className="flex-1 bg-white px-4 py-2 border border-borderCard rounded-xl focus:outline-none focus:ring-2 focus:ring-bgPrimary focus:border-transparent" type="text" placeholder="Enter your message..." />
         <button disabled={!isOpen} onClick={()=>{
             const message = inputRef.current?.value?.trim();
             if (!message || !user) return;
