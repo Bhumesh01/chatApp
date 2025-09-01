@@ -46,18 +46,19 @@ A modern, real-time chat application built with React (Vite + TypeScript) for th
      ```
    - For the backend:
      ```sh
-     cd ../server
+     cd server
      npm install
      ```
 
 3. **Run the app:**
    - Start the backend server:
      ```sh
+     cd server
      npm run dev
      ```
    - In a new terminal, start the frontend:
      ```sh
-     cd ../client
+     cd client
      npm run dev
      ```
 
