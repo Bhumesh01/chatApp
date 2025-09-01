@@ -1,6 +1,7 @@
 import { SendIcon } from "../Icons/sendIcon"
 import CopyIcon from "../Icons/copyIcon";
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react";
+import Avatar from "boring-avatars";
 
 interface User{ 
   name: string, 
@@ -12,6 +13,17 @@ interface MessageType{
   "payload": {
                 "message": string
   }
+}
+const colorPalettes = [
+  ["#92A1C6", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"],
+  ["#FF6B6B", "#FFD93D", "#6BCB77", "#4D96FF", "#845EC2"],
+  ["#00C9A7", "#F9F871", "#FF9671", "#0081CF", "#FF6F91"],
+  ["#FFB703", "#FB8500", "#219EBC", "#023047", "#8ECAE6"],
+];
+
+function getRandomColors(userId: number) {
+  const index = userId % colorPalettes.length;
+  return colorPalettes[index];
 }
 export default function ChatPage() {
   const [messages, setMessages] = useState<MessageType[]>([]);
@@ -91,18 +103,24 @@ export default function ChatPage() {
       <div className="flex-1 bg-card border border-borderCard border-b-0 rounded-t-2xl overflow-y-auto p-4">
         {messages.map((msg, id)=>
         (msg.name == user?.name) ?
-        <div key={id} className="w-fit ml-auto mb-2 flex gap-2">
-          <div className="p-3 rounded-2xl font-semibold bg-bgPrimary text-bg">{msg.payload.message}</div>
-          <div className="bg-blue-700 rounded-full w-fit text-white font-semibold text-center pl-4 pr-4 flex items-center text-lg">{msg.name.split("")[0]}</div>
+        <div key={id} className="w-fit ml-auto mb-2 flex items-start flex-col gap-1">
+          <div className="flex gap-1">
+            <Avatar name={msg.name} size={40} colors={getRandomColors(id)} variant="beam"/>
+            <div className="font-semibold">{msg.name}</div>
+          </div>
+          <div className="relative -top-5  ml-3 p-3 max-w-3xl rounded-2xl font-semibold bg-bgPrimary text-bg w-fit">{msg.payload.message}</div>
         </div>:
-        <div key={id} className="w-fit mr-auto mb-2 flex gap-2">
-          <div className="bg-red-700 rounded-full w-fit text-white font-semibold text-center pl-4 pr-4 flex items-center text-lg">{msg.name.split("")[0]}</div>
-          <div className="p-3 rounded-2xl font-semibold bg-bgPrimary text-bg">{msg.payload.message}</div>
+        <div key={id} className="w-fit mr-auto mb-2 flex gap-1 flex-col items-start">
+          <div className="flex gap-1">
+            <Avatar name={msg.name} size={40} colors={getRandomColors(id)} variant="beam"/>
+            <div className="font-semibold">{msg.name}</div>
+          </div>
+          <div className="relative -top-5 min-w-24 ml-3 p-3 max-w-3xl rounded-2xl font-semibold bg-bgPrimary text-bg w-fit">{msg.payload.message}</div>
         </div>
         )}
       </div>
       <div className="h-16 bg-bgSecondary border border-t-0 border-borderCard rounded-b-2xl flex items-center gap-3 px-4">
-        <input ref={inputRef} className="flex-1 bg-white px-4 py-2 border border-borderCard rounded-xl focus:outline-none focus:ring-2 focus:ring-bgPrimary focus:border-transparent focus:scale-105" type="text" placeholder="Enter your message..." />
+        <input ref={inputRef} className="flex-1 min-w-24 bg-white px-4 py-2 border border-borderCard rounded-xl focus:outline-none focus:ring-2 focus:ring-bgPrimary focus:border-transparent focus:scale-105" type="text" placeholder="Enter your message..." />
         <button disabled={!isOpen} onClick={()=>{
             const message = inputRef.current?.value?.trim();
             if (!message || !user) return;

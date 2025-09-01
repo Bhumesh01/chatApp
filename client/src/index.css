@@ -10,4 +10,5 @@
     /* Surface Colors */
     --color-card: #f1f5f9;
     --color-borderCard: #e5e7eb;
+    --breakpoint-xxs: 100px;
 }
