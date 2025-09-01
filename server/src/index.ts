@@ -37,7 +37,7 @@ wss.on("connection", function(socket:WebSocket){
                 socket.send(JSON.stringify({message: "You are not in a room" }));
                 return;
             }
-            arina.get(roomId)?.forEach(element=>element!==socket&&element.send(JSON.stringify(request)));
+            arina.get(roomId)?.forEach(element=>element.send(JSON.stringify(request)));
             socket.send(JSON.stringify({message: "Message sent successfully" }));
         }
     });
