@@ -3,6 +3,7 @@ import CopyIcon from "../Icons/copyIcon";
 import { useEffect, useRef, useState } from "react";
 import Avatar from "boring-avatars";
 
+const BACKEND_URL = import.meta.env.VITE_REACT_APP_BACKEND_URL;
 interface User{ 
   name: string, 
   roomId: string 
@@ -45,7 +46,7 @@ export default function ChatPage() {
   }, []);
   useEffect(()=>{
     if(!user)return;
-    const ws = new WebSocket("ws://localhost:8080");
+    const ws = new WebSocket(BACKEND_URL);
     wsRef.current = ws;
     ws.onopen = ()=>{
       console.log("Ws opened");
