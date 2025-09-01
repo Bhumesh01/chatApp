@@ -1,12 +1,13 @@
 import { WebSocketServer, WebSocket } from 'ws';
-
+import dotenv from 'dotenv';
+dotenv.config();
 interface UserRequest{
     "type": "join"|"chat",
     "name": string,
     "payload": Record<"message"|"roomId", string>
 }
-
-const wss = new WebSocketServer({port: 8080});
+const PORT = Number(process.env.PORT) || 8080;;
+const wss = new WebSocketServer({port: PORT});
 const arina = new Map<string, Set<WebSocket>>();
 const user = new Map<WebSocket, {name: string, roomId: string}>();
 wss.on("connection", function(socket:WebSocket){
