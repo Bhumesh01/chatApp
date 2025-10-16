@@ -12,6 +12,10 @@
 
 A modern, real-time chat application built with React (Vite + TypeScript) for the frontend and Node.js (WebSocket) for the backend. Features a clean, green-themed UI, room-based chat, and instant messaging.
 
+Watch the full demo here: [Google Drive Video]([https://drive.google.com/file/d/1mlITm7Lf_kdK-BQdmlTfOLheBr-usBTk/view?usp=sharing](https://drive.google.com/file/d/1aO-zEMWeZCHPbwtbyUpzXtNJ4g8IRmVv/view?usp=sharing))
+
+## 🚀 Key Features
+
 ## Features
 - Create or join chat rooms
 - Real-time messaging with WebSockets
